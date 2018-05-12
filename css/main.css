@@ -329,9 +329,66 @@ h2 {
 }
 /* rating */
 .ratingBox {
-    padding-bottom: 1rem;
+    padding-bottom: 0;
+    height: 100vh;
 }
 .ratingBox ul{
-    height: calc(100vh - 3.5rem);
+    height: calc(100vh - 2.78rem);
     overflow: scroll;
+}
+/* loading */
+.loading,
+.inviteImgBox {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #0E0E0E;
+    z-index: 100;
+    display: none;
+}
+.loading.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gif_box {
+    width: .66rem;
+    height: .66rem;
+    background: url('../img/loading.gif') no-repeat center;
+    background-size: .66rem .66rem;
+}
+.inviteImgBox {
+    display: none;
+    padding-top: .47rem;
+    box-sizing: border-box;
+}
+.inviteImgBox .imgBox {
+    height: calc(100vh - 1.54rem);
+    box-sizing: border-box;
+}
+.inviteImgBox .longPress {
+    font-size: .38rem;
+    line-height: .53rem;
+    text-align: center;
+    color: #EADAFF;
+    font-weight: 600;
+    text-shadow: 0 2px 4px #000;
+    margin-top: .17rem;
+}
+.inviteImgBox .icon-close {
+    position: absolute;
+    top: .08rem;
+    right: 0.08rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: url('../img/icon_close.png') no-repeat center;
+    background-size: .6rem .6rem;
+    z-index: 1;
+}
+.inviteImgBox img {
+    height: 100%;
+    margin: auto;
+    display: block;
 }
