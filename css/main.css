@@ -110,6 +110,7 @@ h2 {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     padding-bottom: .26rem;
+    background: RGBA(38, 16, 68, 0.2);
 }
 .activity-rule-box h2{
     margin: 0;
@@ -166,14 +167,29 @@ h2 {
     background-size: 7.06rem 7rem;
 }
 .bkbt-f3 .bg2{
-    height: 6.06rem;
-    background: url('../img/bg_rating_2.png') no-repeat;
+    height: 1000rem;
+    background: url('../img/bg_rating_2.png') repeat-y;
     background-size: 7.06rem 6.06rem;
 }
 .bkbt-f3 .bg3{
     height: .82rem;
     background: url('../img/bg_rating_3.png') no-repeat;
     background-size: 7.06rem .82rem;
+}
+.bkbt-f3 .bg4{
+    height: .82rem;
+    background: url('../img/bg_rating_bottom.png') no-repeat;
+    background-size: 7.06rem .82rem;
+}
+.bkbt-f3 .bg4 p{
+    text-align: center;
+    font-size: .28rem;
+    line-height: .4rem;
+    color: #FAF6FE;
+    padding-top: .18rem;
+}
+.bkbt-f3 .bg4 p span{
+    color: #FEDFA7;
 }
 .rating {
     position: relative;
@@ -208,6 +224,9 @@ h2 {
     line-height: .9rem;
     color: #FEDFA7;
     font-weight: 600;
+}
+.rating li > p.lt99 {
+    font-size: .48rem;
 }
 .head-img {
     display: block;
@@ -270,4 +289,41 @@ h2 {
     border-radius: 1px solid #502984;
     text-align: center;
     font-size: .26rem;
+}
+/* my invite */
+.myInviteOutBox {
+    padding: .36rem .64rem;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+.myInviteBox{
+    background: rgba(38, 16, 68, 0.2);
+    border: 1px solid #502984;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.myInviteBox .title{
+    color: #EADAFF;
+    font-size: .44rem;
+    line-height: .64rem;
+    text-align: center;
+    font-weight: 600;
+    background: rgba(38, 16, 68, 0.3);
+}
+.myInviteBox li{
+    display: flex;
+    padding: .16rem .46rem;
+    align-items: center;
+}
+.myInviteBox li{
+    display: flex;
+    padding: .16rem .46rem;
+    border-top: 1px solid #502984;
+}
+.myInviteBox li div{
+    margin-left: .46rem;
+}
+/* rating */
+.ratingBox {
+    padding-bottom: .4rem;
 }
