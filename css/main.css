@@ -302,6 +302,10 @@ h2 {
     border-radius: 4px;
     overflow: hidden;
 }
+.myInviteBox ul{
+    overflow: scroll;
+    height: calc(100vh - 1.37rem);
+}
 .myInviteBox .title{
     color: #EADAFF;
     font-size: .44rem;
@@ -325,5 +329,9 @@ h2 {
 }
 /* rating */
 .ratingBox {
-    padding-bottom: .4rem;
+    padding-bottom: 1rem;
+}
+.ratingBox ul{
+    height: calc(100vh - 3.5rem);
+    overflow: scroll;
 }
