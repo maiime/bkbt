@@ -392,3 +392,116 @@ h2 {
     margin: auto;
     display: block;
 }
+/* bind */
+.formContainer {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding-top: .32rem;
+    background: #EBEBEB;
+}
+.inputGroup {
+    background: #fff;
+    width: 7.18rem;
+    box-sizing: border-box;
+    padding: 0 .26rem;
+    margin: 0 auto .34rem;
+}
+.inputGroup .code{
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+.inputGroup .code span{
+    font-size: .28rem;
+    padding: 0 .32rem;
+    line-height: .88rem;
+    color: #FF6900;
+}
+.inputGroup .code span.active{
+    color: RGBA(255, 105, 0, 0.5);
+}
+input,
+button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+input {
+    height: .88rem;
+    line-height: .88rem;
+    font-size: .32rem;
+    color: #222;
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: 4rem;
+    outline: none;
+
+}
+input::-webkit-input-placeholder{
+    color:#D8D8D8;
+}
+input::input-placeholder{
+    color:#D8D8D8;
+}
+.formContainer .tip{
+    font-size: .28rem;
+    line-height: .4rem;
+    color: #999;
+    margin-bottom: .46rem;
+    text-align: center;
+}
+.formContainer .tip2{
+    width: 6.14rem;
+    text-align: left;
+    margin: .36rem auto .52rem;
+}
+.btn {
+    box-sizing: border-box;
+    background: #FF6900;
+    color: #fff;
+    text-align: center;
+    border: none;
+    font-size: .36rem;
+    border-radius: .1rem;
+}
+.btn-large {
+    width: 6.7rem;
+    line-height: .94rem;
+    height: .94rem;
+    margin: 0 auto;
+    display: block;
+}
+.btn.disabled{
+    opacity: .5;
+}
+.formContainer2{
+    padding-top: 1.03rem;
+}
+.formContainer2 .des{
+    font-size: .36rem;
+    line-height: .5rem;
+    height: .5rem;
+    color: #222;
+    text-align: center;
+}
+.icon-success {
+    display: block;
+    width: 1.34rem;
+    height: 1.34rem;
+    background: url('../img/icon_success.png') no-repeat center;
+    background-size: 1.34rem 1.34rem;
+    margin: auto;
+}
+.formContainer3{
+    padding-top: 1.3rem;
+}
+.formContainer3 .des{
+    margin-bottom: .24rem;
+}
+.formContainer3 .tip{
+    margin-bottom: .48rem;
+}
+.formContainer3 .tip3{
+    color: #222;
+    margin: 0 auto 1.2rem;
+}

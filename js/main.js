@@ -106,8 +106,7 @@ function imgPrestrain(url) {
         };
     });
 }
-
-;(function () {
+function setupApp (arg) {
     function App() {
         this.body = document.getElementsByTagName('body')[0];
         this.loading = this.$('loading');
@@ -184,4 +183,4 @@ function imgPrestrain(url) {
         
     }
     new App();
-})();
+}

@@ -6,8 +6,4 @@ const FastClick = require('fastclick');
 window.QRCode = QRCode;
 window.axios = axios;
 window.wx = wx;
-
-window.onload = function () {
-    // add fastclick
-    FastClick.attach(document.body);
-};
+window.FastClick = FastClick;
