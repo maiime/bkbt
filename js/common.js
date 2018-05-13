@@ -7,8 +7,9 @@ const config = window.getGlobalConfig();
         var _url = url;
         var arr = url.match(/\{\w+\}/g) || [];
         arr.forEach(i => {
-            if (params && (params[i] || typeof params[i] === 'number')) { 
-                _url = _url.replace(i, params[i]);
+            var _i = i.replace(/\{|\}/g, '');
+            if (params && (params[_i] || typeof params[_i] === 'number')) {
+                _url = _url.replace(i, params[_i]);
             }
         });
         return axios.get(config.host + _url, { params }).then(res => {
@@ -19,12 +20,13 @@ const config = window.getGlobalConfig();
             }
         });
     }
-    function post(url, parasm) {
+    function post(url, params) {
         var _url = url;
         var arr = url.match(/\{\w+\}/g) || [];
         arr.forEach(i => {
-            if (params && (params[i] || typeof params[i] === 'number')) { 
-                _url = _url.replace(i, params[i]);
+            var _i = i.replace(/\{|\}/g, '');
+            if (params && (params[_i] || typeof params[_i] === 'number')) {
+                _url = _url.replace(i, params[_i]);
             }
         });
         return axios.post(config.host + _url, params).then(res => {
@@ -40,6 +42,8 @@ const config = window.getGlobalConfig();
         checkOpenId: () => get('/api/wechat/openId'),
         getSdkAuth: (params) => get('/api/wechat/jsapi', params),
         getWxUserInfo: () => get('/api/wechat/userInfo'),
+        bindMobile: (params) => post('/api/wechat/userInfo/{mobile}', params),
+        friendList: (params) => get('api/wechat/friend/list', params)
     }
     window.$Api = api;
 })(window);
@@ -58,8 +62,10 @@ window.onload = function () {
     $Api.checkOpenId().then(res => {
         // 已登录
         Loaded().then(res => {
-            console.log(res);
-            setupApp && setupApp(res);
+            console.log(res[0]);
+            if (window.setupApp) {
+                window.setupApp(res);
+            }
         });
     }).catch(err => {
         // 未登录

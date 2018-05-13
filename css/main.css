@@ -458,6 +458,7 @@ input::input-placeholder{
 .btn {
     box-sizing: border-box;
     background: #FF6900;
+    padding: 0;
     color: #fff;
     text-align: center;
     border: none;

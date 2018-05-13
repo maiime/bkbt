@@ -107,6 +107,7 @@ function imgPrestrain(url) {
     });
 }
 function setupApp (arg) {
+    const userinfo = arg[0].data;
     function App() {
         this.body = document.getElementsByTagName('body')[0];
         this.loading = this.$('loading');
@@ -114,11 +115,14 @@ function setupApp (arg) {
         this.inviteBox = this.$('inviteImgBox');
         this.img = this.inviteBox.querySelector('img');
         this.closeBtn = this.$('icon-close');
+        this.myHeadImg = this.$('myHeadImg');
+        this.myInviteNumber = this.$('myInviteNumber');
         this.inviteData = '';
         this.inviteStatus = '';
         this.init();
     }
     App.prototype.init = function () {
+        this.setMyInfo();
         this.bindEvent();
     }
 
@@ -167,11 +171,11 @@ function setupApp (arg) {
             return;
         }
         new CreateInvite({
-            nickname: '马文杰',
-            headImgUrl: './img/test/test.jpeg',
-            qrcodeLink: 'http://www.baidu.com',
+            nickname: userinfo.nickname,
+            headImgUrl: userinfo.headimgurl,
+            qrcodeLink: `${config.host}/api/wechat/entry/wx/${userinfo.openid}?url=${window.location.origin}${window.location.pathname}`,
             templateUrl: './img/template.png',
-            ranking: '我是币快报第100名内容挖矿社区代言人'
+            ranking: `我是币快报第${10000}名内容挖矿社区代言人`
         }).then(res => {
             this.inviteData = res;
             this.inviteStatus = 'done';
@@ -182,5 +186,10 @@ function setupApp (arg) {
         });
         
     }
+    App.prototype.setMyInfo = function () {
+        this.myHeadImg.src = userinfo.headimgurl;
+        this.myInviteNumber.innerText = userinfo.tkerNum;
+    }
+    
     new App();
 }
