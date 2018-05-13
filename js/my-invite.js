@@ -1,26 +1,10 @@
-const mockData = [{
-    "id": "5af7d8081a2d31476340dd54",
-    "createdDate": 1526192136867,
-    "subscribed": 0,
-    "nickname": "马一一",
-    "sex": 0,
-    "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83erhEuibfibTcn6y2W6EvqgwG3g3Y1ogicZJMiaiclHQ4q2Q0sYqcNFtxdEOfbicOWoRfeasdiaT6NOHLicnXA/132"
-  },
-  {
-    "id": "5af7d7ec1a2d31476340dd4d",
-    "createdDate": 1526192108333,
-    "subscribed": 0,
-    "nickname": "张珉",
-    "sex": 0,
-    "headimgurl": "http://thirdwx.qlogo.cn/mmopen/vi_32/V0d3stmNLlrc7xYO19BSPewsiazViau8Rn23Dj2iblrpgCwBmgdlEUv2icvPWb51IsVAicEEnf2icxxFfBoaEpaCplqg/132"
-  }];
-
 function setupApp(arg) {
     const userinfo = arg[0];
     function App() {
-        this.list = mockData;
+        this.list = [];
         this.allLoaded = false;
         this.isLoading = false;
+        this.limit = 20;
         this.box = document.getElementById('list');
         this.totalHeight = 0;
         this.init();
@@ -37,9 +21,11 @@ function setupApp(arg) {
         $Api.friendList(params).then(res => {
             if (res.errCode === 0) {
                 // 此处判断是否加载完成
+                if (res.data.content.length < _this.limit) {
+                    _this.allLoaded = true;
+                }
                 _this.list.concat(res.data.content);
-                // _this.renderList(res.data.content);
-                _this.renderList(mockData);
+                _this.renderList(res.data.content);
             } else {
                 console.error(res);
             }
@@ -66,7 +52,8 @@ function setupApp(arg) {
             li.appendChild(div);
             this.box.appendChild(li);
         });
-        this.totalHeight = this.box.scrollHeight;       
+        this.totalHeight = this.box.scrollHeight;
+        this.clientHeight = this.box.clientHeight;      
     }
     App.prototype.formatTime = function (time) {
         var date = new Date(+time);
@@ -78,10 +65,10 @@ function setupApp(arg) {
         return `${year}-${b0(month)}-${b0(day)}-${b0(hour)}:${b0(min)} 加入`;
     }
     App.prototype.bindEvent = function () {
-        var innerHeight = this.box.clientHeight;
+        var _this = this;
         this.box.onscroll = function (e) {
             var scrollTop = this.scrollTop;
-            if (scrollTo + innerHeight >= _this.totalHeight - 50) {
+            if (scrollTo + _this.clientHeight >= _this.totalHeight - 50) {
                 _this.fetchList();
             }
         }

@@ -108,6 +108,10 @@ function imgPrestrain(url) {
 }
 function setupApp (arg) {
     const userinfo = arg[0].data;
+    var mockData = [];
+    for (let i = 0; i < 20; i++) {
+        mockData.push(userinfo);
+    }
     function App() {
         this.body = document.getElementsByTagName('body')[0];
         this.loading = this.$('loading');
@@ -117,6 +121,7 @@ function setupApp (arg) {
         this.closeBtn = this.$('icon-close');
         this.myHeadImg = this.$('myHeadImg');
         this.myInviteNumber = this.$('myInviteNumber');
+        this.box = document.getElementById('list');
         this.inviteData = '';
         this.inviteStatus = '';
         this.init();
@@ -124,6 +129,8 @@ function setupApp (arg) {
     App.prototype.init = function () {
         this.setMyInfo();
         this.bindEvent();
+        // mock
+        this.renderRanking(mockData);
     }
 
     App.prototype.$ = function (className) {
@@ -185,6 +192,41 @@ function setupApp (arg) {
             };
         });
         
+    }
+    // 等待接口
+    App.prototype.getRanking = function () {
+        $Api.fetchRanking().then(res => {
+            _this.renderRanking();
+        })
+    }
+    App.prototype.renderRanking = function name(list) {
+        var _this = this;
+        list.forEach(item => {
+            var li = document.createElement('li');
+            li.className = 'flex-box';
+            var headImg = document.createElement('img');
+            headImg.className = 'head-img';
+            headImg.src = item.headimgurl;
+            var index = document.createElement('p');
+            index.innerText = item.ranking || '0';
+            if (item.ranking > 99) {
+                index.className = 'lt99';
+            }
+            var div = document.createElement('div');
+            var nickname = document.createElement('p');
+            nickname.className = 'nickname';
+            nickname.innerText = item.nickname;
+            var inviteTime = document.createElement('p');
+            inviteTime.className = 'invite';
+            inviteTime.innerHTML = `邀请了<span>${item.tkerNum}</span>名好友加入币快报`;
+            div.appendChild(nickname);
+            div.appendChild(inviteTime);
+            li.appendChild(headImg);
+            li.appendChild(index);
+            li.appendChild(div);
+            this.box.appendChild(li);
+        });
+        this.totalHeight = this.box.scrollHeight;       
     }
     App.prototype.setMyInfo = function () {
         this.myHeadImg.src = userinfo.headimgurl;

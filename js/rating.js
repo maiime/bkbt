@@ -65,7 +65,8 @@ function setupApp(arg) {
             li.appendChild(div);
             this.box.appendChild(li);
         });
-        this.totalHeight = this.box.scrollHeight;       
+        this.totalHeight = this.box.scrollHeight;
+        this.clientHeight = this.box.clientHeight;      
     }
     App.prototype.setInviteFriend = function () {
         if (!userinfo.ranking || userinfo.ranking > 888) {
@@ -75,10 +76,10 @@ function setupApp(arg) {
         }
     }
     App.prototype.bindEvent = function () {
-        var innerHeight = this.box.clientHeight;
+        var _this = this;
         this.box.onscroll = function (e) {
             var scrollTop = this.scrollTop;
-            if (scrollTo + innerHeight >= _this.totalHeight - 50) {
+            if (scrollTo + _this.clientHeight >= _this.totalHeight - 50) {
                 _this.fetchList();
             }
         }
