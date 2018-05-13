@@ -3,7 +3,11 @@ const axios = require('axios');
 const wx = require('weixin-js-sdk');
 const FastClick = require('fastclick');
 
-window.FastClick = FastClick;
 window.QRCode = QRCode;
 window.axios = axios;
 window.wx = wx;
+
+window.onload = function () {
+    // add fastclick
+    FastClick.attach(document.body);
+};

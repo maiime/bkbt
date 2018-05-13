@@ -10,7 +10,7 @@ function CreateInvite(params) {
     this.headImgY = 96;
     this.headImgWidth = 106;
     this.headImgHeight = 106;
-    this.init();
+    return this.init();
 }
 
 CreateInvite.prototype.init = function () {
@@ -32,6 +32,8 @@ CreateInvite.prototype.init = function () {
         return _this.drawRanking();
     }).then(res => {
         return _this.drawQRCode(_this.img3);
+    }).then(res => {
+        return _this.toDataURL();
     });
 }
 CreateInvite.prototype.createCanvas = function () {
@@ -92,7 +94,6 @@ CreateInvite.prototype.toDataURL = function () {
 }
 
 
-
 function imgPrestrain(url) {
     return new Promise((resolve, reject) => {
         var img = new Image();
@@ -105,3 +106,82 @@ function imgPrestrain(url) {
         };
     });
 }
+
+;(function () {
+    function App() {
+        this.body = document.getElementsByTagName('body')[0];
+        this.loading = this.$('loading');
+        this.createInviteBtn = this.$('create-btn');
+        this.inviteBox = this.$('inviteImgBox');
+        this.img = this.inviteBox.querySelector('img');
+        this.closeBtn = this.$('icon-close');
+        this.inviteData = '';
+        this.inviteStatus = '';
+        this.init();
+    }
+    App.prototype.init = function () {
+        this.bindEvent();
+    }
+
+    App.prototype.$ = function (className) {
+        return document.getElementsByClassName(className)[0];
+    }
+    App.prototype.fetchMy = function () {
+        return Promise.resolve();
+    }
+    App.prototype.fetchRanking = function () {
+        return Promise.resolve();
+    }
+    App.prototype.showLoading = function () {
+        this.loading.className = 'loading active';
+        this.body.style.overflow = 'hidden';
+    }
+    App.prototype.hideLoading = function () {
+        this.loading.className = 'loading';
+        this.body.style.overflow = 'auto';
+    }
+    App.prototype.bindEvent = function () {
+        var _this = this;
+        this.createInviteBtn.onclick = function () {
+            _this.createInvite();
+        };
+        this.closeBtn.onclick = function () {
+            _this.closeInvite();
+        }
+    }
+    App.prototype.showInvite = function () {
+        var _this = this;
+        this.hideLoading();
+        this.inviteBox.style.display = 'block';
+        this.body.style.overflow = 'hidden';
+    }
+    App.prototype.closeInvite = function () {
+        var _this = this;
+        this.inviteBox.style.display = 'none';
+        this.body.style.overflow = 'auto';
+    }
+    App.prototype.createInvite = function () {
+        var _this = this;
+        this.showLoading();
+        if (this.inviteStatus === 'done') {
+            this.showInvite();
+            return;
+        }
+        new CreateInvite({
+            nickname: '马文杰',
+            headImgUrl: './img/test/test.jpeg',
+            qrcodeLink: 'http://www.baidu.com',
+            templateUrl: './img/template.png',
+            ranking: '我是币快报第100名内容挖矿社区代言人'
+        }).then(res => {
+            this.inviteData = res;
+            this.inviteStatus = 'done';
+            this.img.src = res;
+            this.img.onload = function () {
+                _this.showInvite();
+            };
+        });
+        
+    }
+    new App();
+})();
