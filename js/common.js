@@ -43,7 +43,7 @@ const config = window.getGlobalConfig();
         getSdkAuth: (params) => get('/api/wechat/jsapi', params),
         getWxUserInfo: () => get('/api/wechat/userInfo'),
         bindMobile: (params) => post('/api/wechat/userInfo/{mobile}', params),
-        friendList: (params) => get('api/wechat/friend/list', params)
+        friendList: (params) => get('/api/wechat/friend/list', params)
     }
     window.$Api = api;
 })(window);
