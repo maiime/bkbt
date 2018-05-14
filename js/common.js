@@ -4,38 +4,41 @@ const config = window.getGlobalConfig();
 
 (function () {
     function get(url, params) {
-        var _url = url;
-        var arr = url.match(/\{\w+\}/g) || [];
-        arr.forEach(i => {
-            var _i = i.replace(/\{|\}/g, '');
-            if (params && (params[_i] || typeof params[_i] === 'number')) {
-                _url = _url.replace(i, params[_i]);
-            }
-        });
-        return axios.get(config.host + _url, { params }).then(res => {
-            if (res.status !== 200 || res.data.errCode !== 0) {
-                return Promise.reject(res);
-            } else {
-                return Promise.resolve(res.data);
-            }
-        });
+        return request(url, 'get', params);
     }
     function post(url, params) {
+        return request(url, 'post', params);
+    }
+    function request(url, method, params) {
         var _url = url;
         var arr = url.match(/\{\w+\}/g) || [];
+        var data = null;
+        var _params = null;
         arr.forEach(i => {
             var _i = i.replace(/\{|\}/g, '');
             if (params && (params[_i] || typeof params[_i] === 'number')) {
                 _url = _url.replace(i, params[_i]);
             }
         });
-        return axios.post(config.host + _url, params).then(res => {
+        if (method === 'post') {
+            data = params;
+        } else {
+            _params = params;
+        }
+        return axios.request({
+            method: method,
+            url: url,
+            baseURL: config.host,
+            withCredentials: true,
+            data: data,
+            params: _params
+        }).then(res => {
             if (res.status !== 200 || res.data.errCode !== 0) {
                 return Promise.reject(res);
             } else {
                 return Promise.resolve(res.data);
             }
-        });
+        });        
     }
     var api = {
         sms: (params) => get('/api/{v1}/{client}/{channel}/sms/captcha/{mobile}', params),
@@ -119,7 +122,8 @@ WX.prototype.configSuccess = function () {
 WX.prototype.registerEvent = function () {
     var _this = this;
     this.jsApiList.forEach(item => {
-        var option = Object.assign(_this.events[item], { link: `${config.shareUrl}?openId=${_this.userInfo.openid}`});
-        wx[item](_this.events[item]);
+        var option = Object.assign({}, { link: `${config.shareUrl}?openId=${_this.userInfo.openid}`}, _this.events[item]);
+        console.log(option);
+        wx[item](option);
     });
 }
