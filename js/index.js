@@ -118,7 +118,7 @@ function setupApp (arg) {
         this.createInviteBtn = this.$('create-btn');
         this.inviteBox = this.$('inviteImgBox');
         this.img = this.inviteBox.querySelector('img');
-        this.closeBtn = this.$('icon-close');
+        this.closeBtn = this.$('icon-close2');
         this.myHeadImg = this.$('myHeadImg');
         this.myInviteNumber = this.$('myInviteNumber');
         this.box = document.getElementById('list');

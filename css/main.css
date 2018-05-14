@@ -269,24 +269,24 @@ h2 {
     z-index: 5;
 }
 .bkbt-self-info .invite{
-    font-size: .26rem;
-    line-height: .37rem;
+    font-size: .2rem;
+    line-height: .28rem;
+    margin-top: .12rem;
 }
 .bkbt-self-info img{
     margin-right: .3rem;
 }
-.bkbt-self-info .my-invite{
-    width: 3.76rem;
-}
 .bkbt-self-info a{
-    display: block;
+    position: absolute;
+    top: .38rem;
+    right: .5rem;
     width: 1.32rem;
     height: .58rem;
     line-height: .58rem;
     border-radius: 4px;
     background: #261044;
     color: #EADAFF;
-    border-radius: 1px solid #502984;
+    border: 1px solid #502984;
     text-align: center;
     font-size: .26rem;
 }
@@ -351,6 +351,18 @@ h2 {
     z-index: 100;
     display: none;
 }
+.loading {
+    background: none;
+}
+.loadingBg {
+    width: 2.96rem;
+    height: 2.96rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .8);
+    border-radius: 8px;
+}
 .loading.active {
     display: flex;
     align-items: center;
@@ -380,7 +392,8 @@ h2 {
     text-shadow: 0 2px 4px #000;
     margin-top: .17rem;
 }
-.inviteImgBox .icon-close {
+.inviteImgBox .icon-close,
+.loading .icon-close{
     position: absolute;
     top: .08rem;
     right: 0.08rem;
@@ -399,7 +412,7 @@ h2 {
 .formContainer {
     min-height: 100vh;
     box-sizing: border-box;
-    padding-top: .32rem;
+    padding-top: .38rem;
     background: #EBEBEB;
 }
 .inputGroup {
@@ -410,7 +423,7 @@ h2 {
     margin: 0 auto .34rem;
 }
 .inputGroup .code{
-    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
     display: flex;
     justify-content: space-between;
 }
@@ -456,7 +469,7 @@ input::input-placeholder{
 .formContainer .tip2{
     width: 6.14rem;
     text-align: left;
-    margin: .36rem auto .52rem;
+    margin: .34rem auto .5rem;
 }
 .btn {
     box-sizing: border-box;
@@ -479,7 +492,7 @@ input::input-placeholder{
     opacity: .5;
 }
 .formContainer2{
-    padding-top: 1.03rem;
+    padding-top: .98rem;
 }
 .formContainer2 .des{
     font-size: .36rem;
@@ -490,11 +503,11 @@ input::input-placeholder{
 }
 .icon-success {
     display: block;
-    width: 1.34rem;
-    height: 1.34rem;
+    width: 1.44rem;
+    height: 1.44rem;
     background: url('../img/icon_success.png') no-repeat center;
-    background-size: 1.34rem 1.34rem;
-    margin: auto;
+    background-size: 1.44rem 1.44rem;
+    margin: 0 auto .32rem;
 }
 .formContainer3{
     padding-top: 1.3rem;
@@ -508,4 +521,11 @@ input::input-placeholder{
 .formContainer3 .tip3{
     color: #222;
     margin: 0 auto 1.2rem;
+}
+.bind-tip {
+    padding: 0 .4rem;
+    font-size: .3rem;
+    line-height: .42rem;
+    color: #888;
+    margin-bottom: .24rem;
 }
