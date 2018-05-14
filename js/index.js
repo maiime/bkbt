@@ -182,7 +182,7 @@ function setupApp (arg) {
             headImgUrl: userinfo.headimgurl,
             qrcodeLink: `${config.host}/api/wechat/entry/wx/${userinfo.openid}?url=${window.location.origin}${window.location.pathname}`,
             templateUrl: './img/template.png',
-            ranking: `我是币快报第${10000}名内容挖矿社区代言人`
+            ranking: `我是币快报第${10000}位内容挖矿社区代言人`
         }).then(res => {
             this.inviteData = res;
             this.inviteStatus = 'done';

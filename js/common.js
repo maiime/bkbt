@@ -67,7 +67,7 @@ window.onload = function () {
             if (window.setupApp) {
                 window.setupApp(res);
             }
-            new WX(res[1].data, config.jsSkd);
+            new WX(res[1].data, config.jsSkd, res[0].data);
         });
     }).catch(err => {
         // 未登录
@@ -83,8 +83,9 @@ window.onload = function () {
     });
 };
 
-function WX(config, events) {
+function WX(config, events, userInfo) {
     var _this = this;
+    this.userInfo = userInfo;
     this.events = events || {};
     this.jsApiList = Object.keys(this.events);
     this.option = Object.assign({}, config, { jsApiList: _this.jsApiList });
@@ -118,6 +119,7 @@ WX.prototype.configSuccess = function () {
 WX.prototype.registerEvent = function () {
     var _this = this;
     this.jsApiList.forEach(item => {
+        var option = Object.assign(_this.events[item], { link: `${config.shareUrl}?openId=${_this.userInfo.openid}`});
         wx[item](_this.events[item]);
     });
 }
