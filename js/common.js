@@ -95,25 +95,15 @@ function WX(config, events, userInfo) {
 WX.prototype.init = function () {
     var _this = this;
     this.config();
-    this.configSuccess().then(_ => {
-        _this.registerEvent();
-    }).catch(err => {
-        console.error(err);
-    });
 }
 WX.prototype.config = function () {
     var _this = this;
     wx.config(_this.option);
-}
-WX.prototype.configSuccess = function () {
-    var _this = this;
-    return new Promise((resolve, reject) => {
-        wx.ready(function () {
-            resolve();
-        });
-        wx.error(function (err) {
-            reject(err);
-        });
+    wx.ready(function () {
+        _this.registerEvent();        
+    });
+    wx.error(function (err) {
+        console.log(err);
     });
 }
 WX.prototype.registerEvent = function () {
