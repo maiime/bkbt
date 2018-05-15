@@ -70,7 +70,7 @@ window.onload = function () {
             if (window.setupApp) {
                 window.setupApp(res);
             }
-            new WX(res[1].data, config.jsSdk, res[0].data);
+            new WX(res[1].data, res[0].data);
         });
     }).catch(err => {
         // 未登录
@@ -86,11 +86,9 @@ window.onload = function () {
     });
 };
 
-function WX(config, events, userInfo) {
+function WX(config, userInfo) {
     var _this = this;
     this.userInfo = userInfo;
-    this.events = events || {};
-    this.jsApiList = Object.keys(this.events);
     this.option = Object.assign({}, config, { jsApiList: ['onMenuShareAppMessage', 'onMenuShareTimeline'] });
     this.init();
 }
@@ -111,12 +109,6 @@ WX.prototype.config = function () {
 }
 WX.prototype.registerEvent = function () {
     var _this = this;
-    this.jsApiList.forEach(item => {
-        var option = Object.assign({}, { link: `${config.shareUrl}?openId=${_this.userInfo.openid}`}, _this.events[item]);
-        console.log(_this.events);
-        console.log(option)
-        wx[item](option);
-    });
     wx.onMenuShareAppMessage({
         title: config.share.title,
         desc: config.share.desc,
