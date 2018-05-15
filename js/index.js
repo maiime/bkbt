@@ -10,30 +10,46 @@ function CreateInvite(params) {
     this.headImgY = 96;
     this.headImgWidth = 106;
     this.headImgHeight = 106;
-    return this.init();
+    this.init();
 }
 
 CreateInvite.prototype.init = function () {
     var _this = this;
     this.createCanvas();
     return this.createQRCode().then(res => {
+        if (WX_DEBUG) {
+            alert('createQRCode-success');
+        }
         _this.QRCodeUrl = res;
         return _this.loadImg();
     }).then(res => {
+        if (WX_DEBUG) {
+            alert('loadImg-success');
+        }
         _this.img1 = res[0];
         _this.img2 = res[1];
         _this.img3 = res[2];
         return _this.drawHeadImg(_this.img1);
     }).then(res => {
+        if (WX_DEBUG) {
+            alert('drawHeadImg-success');
+        }
         return _this.drawTemplate(_this.img2);
     }).then(res => {
+        if (WX_DEBUG) {
+            alert('drawTemp-success');
+        }
         return _this.drawNiceName();
     }).then(res => {
+        if (WX_DEBUG) {
+            alert('nickname-success');
+        }
         return _this.drawRanking();
     }).then(res => {
-        return _this.drawQRCode(_this.img3);
-    }).then(res => {
-        return _this.toDataURL();
+        if (WX_DEBUG) {
+            alert('ranking-success');
+        }
+        _this.drawQRCode(_this.img3);
     });
 }
 CreateInvite.prototype.createCanvas = function () {
@@ -131,6 +147,13 @@ function setupApp (arg) {
         this.bindEvent();
         // mock
         this.renderRanking(mockData);
+        this.x = new CreateInvite({
+            nickname: userinfo.nickname,
+            headImgUrl: userinfo.headimgurl,
+            qrcodeLink: `${config.host}/api/wechat/entry/wx/${userinfo.openid}?url=${window.location.origin}${window.location.pathname}`,
+            templateUrl: './img/template.png',
+            ranking: `我是币快报第${10000}位内容挖矿社区代言人`
+        });
     }
 
     App.prototype.$ = function (className) {
@@ -177,21 +200,15 @@ function setupApp (arg) {
             this.showInvite();
             return;
         }
-        new CreateInvite({
-            nickname: userinfo.nickname,
-            headImgUrl: userinfo.headimgurl,
-            qrcodeLink: `${config.host}/api/wechat/entry/wx/${userinfo.openid}?url=${window.location.origin}${window.location.pathname}`,
-            templateUrl: './img/template.png',
-            ranking: `我是币快报第${10000}位内容挖矿社区代言人`
-        }).then(res => {
-            this.inviteData = res;
-            this.inviteStatus = 'done';
-            this.img.src = res;
-            this.img.onload = function () {
+        var x = this.x.toDataURL();
+        setTimeout(function () {
+            _this.inviteData = x;
+            _this.inviteStatus = 'done';
+            _this.img.src = x;
+            _this.img.onload = function () {
                 _this.showInvite();
             };
-        });
-        
+        }, 2000);
     }
     // 等待接口
     App.prototype.getRanking = function () {

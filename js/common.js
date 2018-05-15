@@ -1,7 +1,6 @@
 
 const config = window.getGlobalConfig();
-
-
+const WX_DEBUG = false;
 (function () {
     function get(url, params) {
         return request(url, 'get', params);
