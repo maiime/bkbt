@@ -1,6 +1,7 @@
+// 正式环境
 ;(function () {
     const config = {
-        downloadAppLink: 'http://m-dev.xiaoyunquegroup.com/#/traffic/activity',
+        downloadAppLink: 'http//:www.baidu.com',
         host: 'https://api-dev.xiaoyunquegroup.com/articles',
         share: {
             title: '和我PK影响力，瓜分百万BKBT！',
