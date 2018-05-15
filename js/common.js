@@ -27,7 +27,7 @@ const config = window.getGlobalConfig();
         }
         return axios.request({
             method: method,
-            url: url,
+            url: _url,
             baseURL: config.host,
             withCredentials: true,
             data: data,
